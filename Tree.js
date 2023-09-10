@@ -31,4 +31,38 @@ module.exports = class Tree {
 
         return root;
     }
+    find(val) {
+        let currentNode = this._root;
+        while (currentNode !== null) {
+            if (val === currentNode.value) break;
+
+            if (val < currentNode.value) 
+                currentNode = currentNode.left;
+            else 
+                currentNode = currentNode.right;
+        }
+        return currentNode;
+    }
+    insert(val) {
+        let currentNode = this._root;
+        while (currentNode !== null) {
+            if (val === currentNode.value) return null;
+
+            else if (val < currentNode.value) {
+                if (currentNode.left === null) {
+                    currentNode.left = new Node(val);
+                    return currentNode.left;
+                }
+                currentNode = currentNode.left;
+            }
+            else {
+                if (currentNode.right === null) {
+                    currentNode.right = new Node(val);
+                    return currentNode.right;
+                }
+                currentNode = currentNode.right;
+            }
+        }
+        return currentNode;
+    }
 }

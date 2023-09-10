@@ -9,7 +9,7 @@ module.exports = class TreeNode {
     set value(val) { this._value = val; }
 
     get left() { return this._leftNode; }
-    set left(node) { this.leftNode = node; }
+    set left(node) { this._leftNode = node; }
 
     get right() { return this._rightNode; }
     set right(node) { this._rightNode = node; }

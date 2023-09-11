@@ -224,4 +224,8 @@ module.exports = class Tree {
         if (!func)
             return arr;
     }
+    height(node) {
+        if (!node) return 0;
+        return Math.max(this.height(node.left), this.height(node.right)) + 1;
+    }
 }

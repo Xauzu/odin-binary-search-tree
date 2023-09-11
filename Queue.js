@@ -3,6 +3,10 @@ module.exports = class Queue {
         this._arr = arr;
     }
 
+    get length() {
+        return this._arr.length;
+    }
+
     dequeue() {
         if (this._arr.length > 0) {
             const item = this._arr.splice(0, 1);

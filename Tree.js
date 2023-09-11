@@ -240,4 +240,9 @@ module.exports = class Tree {
         else
             return this.depth(node.right) + 1;
     }
+    isBalanced(node) {
+        if (!node) return true;
+        if (Math.abs(this.height(node.left) - this.height(node.right)) > 1) return false;
+        else return this.isBalanced(node.left) && this.isBalanced(node.right);
+    }
 }

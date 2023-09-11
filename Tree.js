@@ -118,7 +118,8 @@ module.exports = class Tree {
     }
     levelOrder(func) {
         const q = new Queue();
-        q.enqueue(this._root);
+        if (this._root !== null)
+            q.enqueue(this._root);
 
         const arr = []
         while (q.length > 0) {
@@ -144,7 +145,8 @@ module.exports = class Tree {
     levelOrderRecur(func, q, arr) {
         if (!q) {
             q = new Queue();
-            q.enqueue(this._root);
+            if (this._root !== null)
+                q.enqueue(this._root);
             arr = [];
         }
         else if (q.length === 0) {
@@ -227,5 +229,7 @@ module.exports = class Tree {
     height(node) {
         if (!node) return 0;
         return Math.max(this.height(node.left), this.height(node.right)) + 1;
+    }
+    depth(node, depth) {
     }
 }

@@ -170,4 +170,21 @@ module.exports = class Tree {
 
         return this.levelOrderRecur(func, q, arr);
     }
+    preorder(func, node, arr) {
+        if (node === null) return;
+        if (node === undefined) {
+            node = this._root;
+            arr = []
+        }
+
+        if (func)
+            func(node);
+        arr.push(node.value);
+
+        this.preorder(func, node.left, arr);
+        this.preorder(func, node.right, arr);
+
+        if (!func)
+            return arr;
+    }
 }

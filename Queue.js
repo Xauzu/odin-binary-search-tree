@@ -1,6 +1,6 @@
 module.exports = class Queue {
     constructor(arr) {
-        this._arr = arr;
+        this._arr = arr || [];
     }
 
     get length() {
@@ -10,7 +10,6 @@ module.exports = class Queue {
     dequeue() {
         if (this._arr.length > 0) {
             const item = this._arr.splice(0, 1);
-            console.log(item, this._arr);
             return item;
         }
         else

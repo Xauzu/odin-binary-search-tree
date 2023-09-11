@@ -46,22 +46,72 @@ module.exports = class Tree {
     insert(val) {
         let currentNode = this._root;
         while (currentNode !== null) {
+            let dir = '';
+
             if (val === currentNode.value) return null;
 
             else if (val < currentNode.value) {
-                if (currentNode.left === null) {
-                    currentNode.left = new Node(val);
-                    return currentNode.left;
-                }
-                currentNode = currentNode.left;
+                dir = 'left';
             }
             else {
-                if (currentNode.right === null) {
-                    currentNode.right = new Node(val);
-                    return currentNode.right;
-                }
-                currentNode = currentNode.right;
+                dir = 'right';
             }
+
+            if (currentNode[dir] === null) {
+                currentNode[dir] = new Node(val);
+                return currentNode[dir];
+            }
+            currentNode = currentNode[dir];
+        }
+        return currentNode;
+    }
+    delete(val) {
+        let prevNode = null;
+        let dir = '';
+        let currentNode = this._root;
+        while (currentNode !== null) {
+            if (val === currentNode.value) {
+                // No child
+                if (currentNode.left === null && currentNode.right === null) {
+                    prevNode[dir] = null;
+                }
+                // Two child
+                else if (currentNode.left !== null && currentNode.right !== null) {
+                    let prev = currentNode;
+                    let current = currentNode.right;
+                    while (current.left !== null) {
+                        prev = current;
+                        current = current.left;
+                    }
+
+                    // Move node if there is right child
+                    if (prev !== currentNode)
+                        prev.left = current.right;
+                    else
+                        prev.right = current.right;
+
+                    currentNode.value = current.value;    
+                }
+                // One child
+                else {
+                    let child;
+                    if (currentNode.left !== null)
+                        child = currentNode.left;
+                    else
+                        child = currentNode.right;
+
+                    prevNode[dir] = child;
+                }
+            }
+            else if (val < currentNode.value) {
+                dir = 'left';
+            }
+            else {
+                dir = 'right';
+            }
+
+            prevNode = currentNode;
+            currentNode = currentNode[dir];
         }
         return currentNode;
     }

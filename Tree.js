@@ -230,6 +230,14 @@ module.exports = class Tree {
         if (!node) return 0;
         return Math.max(this.height(node.left), this.height(node.right)) + 1;
     }
-    depth(node, depth) {
+    depth(node) {
+        if (!node || !this._root) return null;
+        
+        if (node.value === this._root.value) return 0;
+        
+        if (node.value < this._root.value)
+            return this.depth(node.left) + 1;
+        else
+            return this.depth(node.right) + 1;
     }
 }

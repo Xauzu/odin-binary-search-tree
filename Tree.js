@@ -3,8 +3,7 @@ const Queue = require('./Queue.js');
 
 module.exports = class Tree {
     constructor(arr) {
-        this._arr = this.#sortAndRemoveDuplicates(arr) || null;
-        this._root = this.buildTree(this._arr);
+        this._root = this.buildTree(this.#sortAndRemoveDuplicates(arr));
     }
 
     get root() { return this._root}
@@ -241,8 +240,16 @@ module.exports = class Tree {
             return this.depth(node.right) + 1;
     }
     isBalanced(node) {
-        if (!node) return true;
+        if (node === undefined) node = this._root;
+        if (node === null) return true;
         if (Math.abs(this.height(node.left) - this.height(node.right)) > 1) return false;
         else return this.isBalanced(node.left) && this.isBalanced(node.right);
+    }
+    rebalance(node) {
+        if (!node) node = this._root;
+        if (!this.isBalanced(node)){
+            const arr = this.#sortAndRemoveDuplicates(this.inorder());
+            this._root = this.buildTree(arr);
+        }
     }
 }

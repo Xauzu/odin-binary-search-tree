@@ -1,4 +1,5 @@
 const Node = require('./TreeNode.js');
+const Queue = require('./Queue.js');
 
 module.exports = class Tree {
     constructor(arr) {
@@ -114,5 +115,59 @@ module.exports = class Tree {
             currentNode = currentNode[dir];
         }
         return currentNode;
+    }
+    levelOrder(func) {
+        const q = new Queue();
+        q.enqueue(this._root);
+
+        const arr = []
+        while (q.length > 0) {
+            const current = q.dequeue();
+
+            arr.push(current.value);
+
+            if (func) 
+                func(current);
+
+            if (current.left) {
+                q.enqueue(current.left);
+            }
+
+            if (current.right) {
+                q.enqueue(current.right);
+            }
+        }
+
+        if (!func)
+            return arr;
+    }
+    levelOrderRecur(func, q, arr) {
+        if (!q) {
+            q = new Queue();
+            q.enqueue(this._root);
+            arr = [];
+        }
+        else if (q.length === 0) {
+            if (!func)
+                return arr;
+            return;
+        };
+        
+        const current = q.dequeue();
+
+        arr.push(current.value);
+
+        if (func) 
+            func(current);
+
+        if (current.left) {
+            q.enqueue(current.left);
+        }
+
+        if (current.right) {
+            q.enqueue(current.right);
+        }
+
+        return this.levelOrderRecur(func, q, arr);
     }
 }

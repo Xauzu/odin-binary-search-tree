@@ -9,7 +9,7 @@ module.exports = class Queue {
 
     dequeue() {
         if (this._arr.length > 0) {
-            const item = this._arr.splice(0, 1);
+            const item = this._arr.splice(0, 1)[0];
             return item;
         }
         else

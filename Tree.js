@@ -187,4 +187,41 @@ module.exports = class Tree {
         if (!func)
             return arr;
     }
+    inorder(func, node, arr) {
+        if (node === null) return;
+        if (node === undefined) {
+            node = this._root;
+            arr = []
+        }
+
+
+        this.inorder(func, node.left, arr);
+
+        if (func)
+            func(node);
+        arr.push(node.value);
+
+        this.inorder(func, node.right, arr);
+
+        if (!func)
+            return arr;
+    }
+    postorder(func, node, arr) {
+        if (node === null) return;
+        if (node === undefined) {
+            node = this._root;
+            arr = []
+        }
+
+
+        this.postorder(func, node.left, arr);
+        this.postorder(func, node.right, arr);
+
+        if (func)
+            func(node);
+        arr.push(node.value);
+
+        if (!func)
+            return arr;
+    }
 }

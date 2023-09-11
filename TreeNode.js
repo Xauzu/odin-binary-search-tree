@@ -5,7 +5,7 @@ module.exports = class TreeNode {
         this._rightNode = rightNode || null;
     }
 
-    get value() { return this._value; }
+    get value() { return +this._value; }
     set value(val) { this._value = val; }
 
     get left() { return this._leftNode; }
